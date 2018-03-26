@@ -6,7 +6,6 @@ exports.slack_response = function (req, res) {
 
   var dirtyText = req.body.text
   var response_url = req.body.response_url
-
   var text = dirtyText.replace(' ', '%20')
 
   // tell slack that we've received the response, allowing us to send delayed responses
@@ -45,8 +44,6 @@ exports.slack_response = function (req, res) {
       })
     })
   })
-
-
   console.log('Slash Command Text: ' + text + '\n' + 'Response URL: ' + response_url)
 }
 
