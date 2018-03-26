@@ -27,6 +27,7 @@ exports.slack_response = function (req, res) {
 
     // Check if the game is PUBG
     if (title == 950328474) {
+      console.log('title is pubg - should return stats')
       axios({
         method: 'get',
         url: 'https://xboxapi.com/v2/' + xuid + '/game-stats/' + 950328474,
