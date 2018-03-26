@@ -19,7 +19,7 @@ exports.slack_response = function (req, res) {
     method: 'get',
     url: 'https://xboxapi.com/v2/xuid/' + text,
     headers: {
-      'X-AUTH': 'add522101813917edaeae46c737bbddc81cd2bc9'
+      'X-AUTH': process.env.X-AUTH
     }
   }).then(function(response) {
     var xuid = response.data.xuid
@@ -30,7 +30,7 @@ exports.slack_response = function (req, res) {
       method: 'get',
       url: 'https://xboxapi.com/v2/' + xuid + '/game-clips',
       headers: {
-        'X-AUTH': 'add522101813917edaeae46c737bbddc81cd2bc9'
+        'X-AUTH': process.env.X-AUTH
       }
     }).then(function(response) {
       var clip = response.data[0].gameClipUris[0].uri
