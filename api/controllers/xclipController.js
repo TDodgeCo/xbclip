@@ -1,26 +1,5 @@
 'use strict';
 const axios = require('axios')
-// const mongoose = require('mongoose'),
-//     Task = mongoose.model('Tasks')
-//
-// exports.list_all_tasks = function(req, res) {
-//     Task.find({}, function(err, task) {
-//         if (err) {
-//             res.send(err)
-//         }
-//         res.json(task)
-//     })
-// }
-//
-// exports.create_a_task = function(req, res) {
-//     var new_task = new Task(req.body)
-//     new_task.save(function(err, task) {
-//         if (err) {
-//             res.send(err)
-//         }
-//         res.json(task)
-//     })
-// }
 
 exports.slack_response = function (req, res) {
   // Get the necessary responses from slack
@@ -30,11 +9,13 @@ exports.slack_response = function (req, res) {
 
   var text = dirtyText.replace(' ', '%20')
 
+  // tell slack that we've received the response, allowing us to send delayed responses
   res.json(200, {
     'response_type': 'in_channel',
-    'text': 'Serving up the latest clip from ' +  text
+    'text': 'Serving up the latest clip from ' +  dirtyText
   })
 
+  // get the gamertag's xuid from xboxapi
   axios({
     method: 'get',
     url: 'https://xboxapi.com/v2/xuid/' + text,
@@ -45,6 +26,7 @@ exports.slack_response = function (req, res) {
     var xuid = response.data.xuid
     console.log(response.data.xuid)
 
+    // use the xuid to find the latest clip for that xuid
     axios({
       method: 'get',
       url: 'https://xboxapi.com/v2/' + xuid + '/game-clips',
@@ -54,6 +36,7 @@ exports.slack_response = function (req, res) {
     }).then(function(response) {
       var clip = response.data[0].gameClipUris[0].uri
 
+      // post that video clip to slack
       axios.post(response_url, {
         response_type: 'in_channel',
         text: 'Here is the clip! - ' + clip
