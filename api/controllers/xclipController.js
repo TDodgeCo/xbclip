@@ -29,7 +29,7 @@ exports.slack_response = function (req, res) {
     if (title == 950328474) {
       axios({
         method: 'get',
-        url: 'https://xboxapi.com/v2/' + 2535462000518699 + '/game-stats/' + 950328474,
+        url: 'https://xboxapi.com/v2/' + xuid + '/game-stats/' + 950328474,
         headers: {
           'X-AUTH': process.env.X_AUTH
         }
