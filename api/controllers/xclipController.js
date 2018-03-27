@@ -2,6 +2,7 @@
 const axios = require('axios')
 
 exports.slack_response = function (req, res) {
+  const url = require('./linkShorteningController')
   // Get the necessary responses from slack
 
   var dirtyText = req.body.text
