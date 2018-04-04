@@ -21,7 +21,7 @@ exports.slack_response = function (req, res) {
     headers: {
       'X-AUTH': process.env.X_AUTH
     }
-  }).then(function (response) {
+  }).then( response =>  {
     var xuid = response.data.xuid
 
     // use the xuid to find the latest clip for that xuid
@@ -31,7 +31,7 @@ exports.slack_response = function (req, res) {
       headers: {
         'X-AUTH': process.env.X_AUTH
       }
-    }).then(function (response) {
+    }).then( response =>  {
       var clip = response.data[0].gameClipUris[0].uri
       var title = response.data[0].titleId
       console.log('title is - ' + title)
@@ -45,7 +45,7 @@ exports.slack_response = function (req, res) {
         data: {
           'longUrl': clip
         }
-      }).then(function (response) {
+      }).then( response =>  {
         var shortUrl = response.data.id
 
         // shorten URL and post that video clip to slack
