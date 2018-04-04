@@ -72,7 +72,7 @@ exports.slack_response = function (req, res) {
         // shorten URL and post that video clip to slack
         axios.post(response_url, {
           response_type: 'in_channel',
-          text: gamertag + ' shared their latest clip with the channel - \n' + shortUrl + '\n This video will expire in 60 minutes.'
+          text: gamertag + shortUrl + '\n This video will expire in 60 minutes.'
         }).then(function(response) {
           console.log('clip successfully sent')
         })
