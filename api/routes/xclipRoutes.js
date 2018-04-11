@@ -8,5 +8,7 @@ module.exports = function(app) {
     .get(xclip.get_response)
 
     app.route('/test')
-    .get(console.log('get worked'))
+    .get(function (req, res) {
+        res.send('hello, the get request worked')
+    })
 }
